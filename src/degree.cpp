@@ -71,7 +71,7 @@ int* BFS( vector< vector<int> >ivvNetwork, int iVertex ) {
    qiGrayVertex.push(iVertex);
 
    while( !qiGrayVertex.empty() ) {
-       u=qiGrayVertex.back();//Take the last element
+       u=qiGrayVertex.front();//Take the last element
 	   qiGrayVertex.pop();//and dequeue it
 
 	   for( vector<int>::iterator it = ivvNetwork[u].begin(); it != ivvNetwork[u].end(); it++ ) {

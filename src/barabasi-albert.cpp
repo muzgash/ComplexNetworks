@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
 
     vector< vector<int> > BANetwork,initialNetwork;
 
-	initialNetwork = ring(6,4);
+	initialNetwork = ring(4,2);
 	//cout<<initialNetwork.size()<<endl;
 
 	printGraph(initialNetwork);
@@ -33,11 +33,11 @@ int main(int argc, char *argv[]) {
 	printGraph(BANetwork);
    
 	
-	int* iDistance;iDistance = new int[10];
-	for( int s = 0; s < 10; s++){
+	int* iDistance;iDistance = new int[8];
+	for( int s = 0; s < 8; s++){
 	    iDistance = BFS(BANetwork,s);
 		cout<<"Distances from vertex "<<s<<" to the rest"<<endl;
-	    for( int i = 0; i < 10; i++ ) {
+	    for( int i = 0; i < 8; i++ ) {
 	        cout<<iDistance[i]<<" ";
 	    }
 		cout<<endl;
