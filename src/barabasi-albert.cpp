@@ -16,20 +16,32 @@ void printGraph( vector< vector<int> > graph ) {
 
 int main(int argc, char *argv[]) {
 
-    vector< vector<int> > BANetwork,initial_network;
+    vector< vector<int> > BANetwork,initialNetwork;
 
-	initial_network = ring(6,4);
-	//cout<<initial_network.size()<<endl;
+	initialNetwork = ring(6,4);
+	//cout<<initialNetwork.size()<<endl;
 
-	printGraph(initial_network);
+	printGraph(initialNetwork);
 
-	BANetwork = barabasiAlbertModel(initial_network,6);
+	//cout<<endl;
+	
+
+	BANetwork = barabasiAlbertModel(initialNetwork,4);
 
 	cout<<endl;
 
 	printGraph(BANetwork);
    
 	
+	int* iDistance;iDistance = new int[10];
+	for( int s = 0; s < 10; s++){
+	    iDistance = BFS(BANetwork,s);
+		cout<<"Distances from vertex "<<s<<" to the rest"<<endl;
+	    for( int i = 0; i < 10; i++ ) {
+	        cout<<iDistance[i]<<" ";
+	    }
+		cout<<endl;
+	}
 
     return 0;
 }

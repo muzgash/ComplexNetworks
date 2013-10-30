@@ -1,5 +1,7 @@
 #include<degree.h>
 #include<vector>
+#include<queue>
+#include<iostream>
 
 int mod(int a, int b){
     return (a>=0) ? a%b : a%b+abs(b);
@@ -44,4 +46,44 @@ double averageClusteringCoefficient( vector< vector<int> > ivvNetwork ) {
     return dClusteringCoefficient/N;
 }
 
+int* BFS( vector< vector<int> >ivvNetwork, int iVertex ) {
 
+   int N = ivvNetwork.size();
+   int u;
+
+   int NIL = -1;
+
+   char cColor[N]; //w for white, g for gray and b for black
+   int iPredecesor[N];
+   int *iDistance;iDistance = new int[N];
+   queue<int> qiGrayVertex;
+
+   for(int i = 0; i<N; i++) {
+       if( i == iVertex ) continue; //Taking out the vertex from which we calculate the distances
+	   cColor[i] = 'w';
+	   iDistance[i] = 0;
+	   iPredecesor[i] = NIL;
+   }
+
+   cColor[iVertex] = 'g';
+   iDistance[iVertex] = 0;
+   iPredecesor[iVertex] = NIL;
+   qiGrayVertex.push(iVertex);
+
+   while( !qiGrayVertex.empty() ) {
+       u=qiGrayVertex.back();//Take the last element
+	   qiGrayVertex.pop();//and dequeue it
+
+	   for( vector<int>::iterator it = ivvNetwork[u].begin(); it != ivvNetwork[u].end(); it++ ) {
+	       if( cColor[*it] == 'w' ) {
+		       cColor[*it] = 'g';
+			   iDistance[*it] = iDistance[u]+1;
+			   iPredecesor[*it] = u;
+			   qiGrayVertex.push(*it);
+		   }
+	   }
+	   cColor[u]='b';
+
+   }
+   return iDistance;
+}

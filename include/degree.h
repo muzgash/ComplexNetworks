@@ -60,4 +60,21 @@ double averageClusteringCoefficient( vector< vector<int> > ivvNetwork );
 double averageDegree( vector< vector<int> > ivvNetwork );
 
 
+
+int* BFS( vector< vector<int> >ivvNetwork, int iVertex);
+
+
+
+
+/*! \brief Calculates the average shotest path length of a given network
+ *
+ *  \param std::vector<std::vector<int>> ivvNetwork 
+ *
+ *  Sums over the shortests paths and divides by its total
+ *
+ *  \returns The average shortest path length
+*/
+double averageShortestPathLength( vector< vector<int> > ivvNetwork );
+
+
 #endif

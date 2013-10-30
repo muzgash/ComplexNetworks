@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
 
 	ws=ring(NN,kk);
 	
-	double Co=double(3.0*((kk/2.0)-1)/(2.0*(kk-1)));
+	double Co=double(3.0*((kk/2.0)-1)/(2.0*(kk-1)));//Clusterign coefficient of a ring.
 	for(double i = 0.0; i <= 1.0; i+=0.001){
 		ws = wattsStrogatzModel(NN,kk,i);
 		cout<<i<<" "<<averageClusteringCoefficient(ws)/Co<<endl;
