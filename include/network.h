@@ -49,6 +49,7 @@ vector< vector<int> > wattsStrogatzModel(int iSize, int iAverageDegree, double d
  *
  *  \returns A barabasi-Albert model based network.
 */
-vector< vector<int> > barabasiAlbertModel( vector< vector<int> > ivvNetwork, int iSteps );
+vector< vector<int> > barabasiAlbertModel( vector< vector<int> > ivvNetwork,
+                                           int iSteps, int iConectivity );
 
 #endif

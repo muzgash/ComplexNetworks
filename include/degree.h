@@ -61,7 +61,18 @@ double averageDegree( vector< vector<int> > ivvNetwork );
 
 
 
-int* BFS( vector< vector<int> >ivvNetwork, int iVertex);
+
+/*! \brief Sums the distances between a vertex and every other
+ *
+ *  \param std::vector<std::vector<int>> ivvNetwork
+ *  \param int iVertex: Seed vertex.
+ *
+ *  Uses the breadth-fisrt search algorithm but avoiding the tree cosntruction. It is
+ *  not necessary since we are interested in the average shortest path length only.
+ *
+ *  \returns The sum of distances between a vetex and any other
+*/
+int BFS( vector< vector<int> >ivvNetwork, int iVertex);
 
 
 
@@ -70,7 +81,8 @@ int* BFS( vector< vector<int> >ivvNetwork, int iVertex);
  *
  *  \param std::vector<std::vector<int>> ivvNetwork 
  *
- *  Sums over the shortests paths and divides by its total
+ *  Sums over the shortests paths found with BFS and divides by its total
+ *  and by two since we find SPL for each vertex twice.
  *
  *  \returns The average shortest path length
 */
