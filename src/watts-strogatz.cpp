@@ -2,6 +2,7 @@
 #include<network.h>
 #include<iostream>
 #include<fstream>
+#include<string>
 
 using namespace std;
 
@@ -20,41 +21,50 @@ void printGraph( vector< vector<int> > graph ) {
 
 int main(int argc, char *argv[]) {
     
-	int NN=atoi(argv[1]), kk=atoi(argv[2]);
-	ofstream spl("ws-spl.dat"),acc("ws-acc.dat"),time("ws-spl-time.dat");
+	int NN=atoi(argv[1]), kk=atoi(argv[2]),totalProcs=atoi(argv[3]),actualProc=atoi(argv[4]);
+	string procId=argv[5];
+	string name;
+	name="ws-spl.dat."+procId;
+	ofstream spl(name.c_str());
+	name="ws-acc.dat."+procId;
+	ofstream acc(name.c_str());
+	//ofstream time("ws-spl-time.dat");
 
 	vector< vector<int> > ws;
 
+	//clock_t begin,end,begin_cc,end_cc,begin_spl,end_spl;
 
-	clock_t begin,end,begin_cc,end_cc,begin_spl,end_spl;
-
-	begin=clock();
+	//begin=clock();
 	ws=ring(NN,kk);
 
 	double Lo=averageShortestPathLength(ws);//Average shortest path length of a ring;
 	double Co=double(3.0*((kk/2.0)-1)/(2.0*(kk-1)));//Clusterign coefficient of a ring.
-	end=clock();
-	time<<"Tiempo de contrucción y cálculo del anillo: "<<double(end-begin)/CLOCKS_PER_SEC<<endl;
-	time<<"Probability\tConstruction\tClustering Coefficient\tSPL"<<endl;
-	for(double i = 0.0; i <= 1.0; i+=0.001){
-		begin=clock();
+
+    double dPart=1.0/totalProcs;
+	double min=actualProc*dPart,max=min+dPart;
+
+	//end=clock();
+	//time<<"Tiempo de contrucción y cálculo del anillo: "<<double(end-begin)/CLOCKS_PER_SEC<<endl;
+	//time<<"Probability\tConstruction\tClustering Coefficient\tSPL"<<endl;
+	for(double i = min; i < max; i+=0.001){
+		//begin=clock();
 		ws = wattsStrogatzModel(NN,kk,i);
-		end=clock();
-		begin_cc=clock();
+		//end=clock();
+		//begin_cc=clock();
 		acc<<i<<" "<<averageClusteringCoefficient(ws)/Co<<endl;
-		end_cc=clock();
-		begin_spl=clock();
+		//end_cc=clock();
+		//begin_spl=clock();
 		spl<<i<<" "<<averageShortestPathLength(ws)/Lo<<endl;
-		end_spl=clock();
-	    time<<i<<"\t"<<double(end-begin)/CLOCKS_PER_SEC;
-		time<<"\t"<<double(end_cc-begin_cc)/CLOCKS_PER_SEC;
-		time<<"\t"<<double(end_spl-begin_spl)/CLOCKS_PER_SEC<<endl;
+		//end_spl=clock();
+	    //time<<i<<"\t"<<double(end-begin)/CLOCKS_PER_SEC;
+		//time<<"\t"<<double(end_cc-begin_cc)/CLOCKS_PER_SEC;
+		//time<<"\t"<<double(end_spl-begin_spl)/CLOCKS_PER_SEC<<endl;
 
 	}
 	printGraph(ws);
 	spl.close();
 	acc.close();
-	time.close();
+	//time.close();
 
 
 
