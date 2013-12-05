@@ -4,20 +4,21 @@ INCLUDE_DIRECTORIES( include )
 
 ADD_DEFINITIONS( -std=c++11 )
 
+add_library(node SHARED
+include/Node.hpp
+src/Node.cpp
+)
+
 add_library(degree SHARED
-include/degree.h
-src/degree.cpp
+include/Degree.h
+src/Degree.cpp
 )
 
 add_library(network SHARED
-include/network.h
-src/network.cpp
+include/Network.h
+src/Network.cpp
 )
 
-ADD_EXECUTABLE( ws src/watts-strogatz.cpp )
+ADD_EXECUTABLE( opinion src/opinion.cpp )
 
-ADD_EXECUTABLE( ba src/barabasi-albert.cpp )
-
-target_link_libraries(ws degree network)
-
-target_link_libraries(ba degree network)
+target_link_libraries(opinion degree network node)
