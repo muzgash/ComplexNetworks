@@ -19,6 +19,7 @@ include/Network.h
 src/Network.cpp
 )
 
-ADD_EXECUTABLE( opinion src/opinion.cpp )
+ADD_EXECUTABLE( opinion src/Opinion.cpp )
+ADD_EXECUTABLE( opinion src/SocialImpact.cpp )
 
 target_link_libraries(opinion degree network node)

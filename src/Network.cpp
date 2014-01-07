@@ -3,8 +3,8 @@
 #include<Node.hpp>
 #include<cstdlib>
 #include<ctime>
-#include<map>
 #include<iostream>
+#include<random>
 
 using namespace std;
 
@@ -25,8 +25,10 @@ vector< Node > ring( int iSize, int iAverageDegree ) {
 }
 
 vector< Node > wattsStrogatzModel(int iSize, int iAverageDegree, double dProbability) {
-	srand48(time(NULL));
-	srand(time(NULL));
+    random_device rd;
+	//srand48(time(NULL));
+	//srand(time(NULL));
+	double ran_max=double(rd.max()),ran;
 
 	vector< Node > ivvWSNetwork;
 	for ( int i = 0; i < iSize; i++ ) {
@@ -36,8 +38,11 @@ vector< Node > wattsStrogatzModel(int iSize, int iAverageDegree, double dProbabi
 	for( int i = 0; i < iSize; i++ ) {//runs trhough every node
 		int iNeighbor;
 		for( int j = 1; j <= iAverageDegree/2 ; j++ ) { //runs through the k/2 neighbors to the "right"
-			    if( drand48() < dProbability ) { //If P -> rewire with a normal distribution
-				    iNeighbor = mod(random()%(iAverageDegree+1)+(i+1),iSize);
+		        ran=double(rd())/ran_max;
+			    if( ran < dProbability ) { //If P -> rewire with a normal distribution
+				    ran=rd();
+					cout<<ran<<endl;
+				    iNeighbor = mod(int(ran)%(iAverageDegree+1)+(i+1),iSize);
 
 			    }
 			    else iNeighbor = mod(i+j,iSize);
@@ -83,6 +88,7 @@ vector< Node > barabasiAlbertModel( vector< Node > ivvNetwork,
 			//Since both vectors have the same number of items we use a while on viDegree
 			while( itDegree != viDegree.end() ) {
 			    //If the random number fall in the interval
+	
 			    if( r>dProbSum && r<=dProbSum+(*itDegree)/dDegreeSum ){
 				    //Save the iterators for later removal
 				    eraseNodeIt=itVertex;

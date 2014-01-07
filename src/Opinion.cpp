@@ -31,11 +31,11 @@ void printGraph( vector< Node > graph ) {
 
 int main(int argc, char** argv) {
 
-    vector< Node > initialRing,ws;
+    vector< Node > initialRing,ba;
 
     initialRing=ring(6,3);
 
-	ws=barabasiAlbertModel(initialRing,20,4);	
+	ba=barabasiAlbertModel(initialRing,20,4);	
 
     return 0;
 }

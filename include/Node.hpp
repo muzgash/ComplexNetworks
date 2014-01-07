@@ -23,10 +23,13 @@ class Node {
 
 		void setOpinion(bool bOpinion){_bOpinion=bOpinion;}
 		bool getOpinion(){return _bOpinion;}
+		double getPersuasiveness(){return _dPersuasiveness;}
+		double getSupportiveness(){return _dSupportiveness;}
 
 	private:
 
 	    bool _bOpinion;
+		double _dSupportiveness,_dPersuasiveness; //suportiveness and presuasiveness
 
 		vector<int>::iterator _it;
 };
