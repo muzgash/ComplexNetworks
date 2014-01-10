@@ -33,5 +33,6 @@ Node::Node() {
 	normal_distribution<double> distribution(0,31);//mean 0 and sd 31
 	_dSupportiveness = distribution(generator);
 	_dPersuasiveness = distribution(generator);
+	cout<<_bOpinion<<" "<<_dSupportiveness<<" "<<_dPersuasiveness<<endl;
 
 }
