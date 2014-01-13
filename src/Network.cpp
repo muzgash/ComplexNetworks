@@ -9,8 +9,12 @@
 using namespace std;
 
 vector< Node > ring( int iSize, int iAverageDegree ) {
-    Node ivTmp;
-    vector< Node > ivvGraph(iSize,ivTmp);
+    vector< Node > ivvGraph;
+	for( int i = 0; i < iSize; i++ ) {
+	  Node nTmp(i);
+	  ivvGraph.push_back(nTmp);
+	  delete &nTmp;
+	}
 	for( int i = 0; i < iSize; i++ ) {
         int iEdge;
 
@@ -32,7 +36,7 @@ vector< Node > wattsStrogatzModel(int iSize, int iAverageDegree, double dProbabi
 
 	vector< Node > ivvWSNetwork;
 	for ( int i = 0; i < iSize; i++ ) {
-	    Node ivNode;
+	    Node ivNode(i);
 		ivvWSNetwork.push_back(ivNode);
 	}
 	for( int i = 0; i < iSize; i++ ) {//runs trhough every node
@@ -60,12 +64,13 @@ vector< Node > barabasiAlbertModel( vector< Node > ivvNetwork,
 	srand48(time(NULL));
 	double r;
 	int iSize;
+	int iInitialSize=ivvNetwork.size();
 	double dProbSum;//Sums the probabilities to obtain the next interval
 	vector<int>::iterator eraseNodeIt,eraseDegreeIt;//iterator to erase the wired node
     for( int t = 0; t < iSteps; t++ ) {
 	    iSize=ivvNetwork.size();
 	    double dDegreeSum = iSize*averageDegree(ivvNetwork);
-	    Node ivTmp;
+	    Node ivTmp(iInitialSize+t+1);
 	    ivvNetwork.push_back(ivTmp);
 
 
