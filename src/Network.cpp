@@ -13,7 +13,6 @@ vector< Node > ring( int iSize, int iAverageDegree ) {
 	for( int i = 0; i < iSize; i++ ) {
 	  Node nTmp(i);
 	  ivvGraph.push_back(nTmp);
-	  delete &nTmp;
 	}
 	for( int i = 0; i < iSize; i++ ) {
         int iEdge;
@@ -30,8 +29,6 @@ vector< Node > ring( int iSize, int iAverageDegree ) {
 
 vector< Node > wattsStrogatzModel(int iSize, int iAverageDegree, double dProbability) {
     random_device rd;
-	//srand48(time(NULL));
-	//srand(time(NULL));
 	double ran_max=double(rd.max()),ran;
 
 	vector< Node > ivvWSNetwork;
@@ -70,7 +67,7 @@ vector< Node > barabasiAlbertModel( vector< Node > ivvNetwork,
     for( int t = 0; t < iSteps; t++ ) {
 	    iSize=ivvNetwork.size();
 	    double dDegreeSum = iSize*averageDegree(ivvNetwork);
-	    Node ivTmp(iInitialSize+t+1);
+	    Node ivTmp(iInitialSize+t);
 	    ivvNetwork.push_back(ivTmp);
 
 
