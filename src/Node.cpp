@@ -3,10 +3,8 @@
 
 
 
-#include<random>
 #include<iostream>
-#include<chrono>
-#include<queue>
+//#include<queue>
 
 
 
@@ -20,36 +18,27 @@ using namespace std;
 Node::Node(int iIndex) {
     _iIndex=iIndex;
     _it=_viNeighbors.begin();
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+}
 
-	random_device rd;
-
-	double max=double(rd.max()),ran=double(rd())/max;
-
-	//srand48(time(NULL));
-	double dOpinionProbability=0.5;
-	if ( ran < dOpinionProbability ) setOpinion(true);
-	else setOpinion(false);
-
-	//Normal distributed random number generation
-	default_random_engine generator(seed);
-	normal_distribution<double> distribution(0,2);//mean 0 and sd 31
-	_dSupportiveness = distribution(generator);
-	_dPersuasiveness = distribution(generator);
-	//cout<<_bOpinion<<" "<<_dSupportiveness<<" "<<_dPersuasiveness<<endl;
-
+void Node::printNeighbors() {
+    for( int i = 0; i < _viNeighbors.size(); i++ ) {
+	    cout<<_viNeighbors.at(i)<<" ";
+	}
+	cout<<endl;
+	_it=_viNeighbors.begin();
 }
 
 
-
-
+/*
 void Node::printDistances() {
     cout<<"size: "<<_viDistances.size()<<endl;
     for( int i = 0; i < _viDistances.size(); i++ ) {
 	    cout<<i<<" => "<<_viDistances[i]<<endl;
 	}
-}
+}*/
 
+
+/*
 void Node::setDistances(vector< Node > &vnNetwork) {
     int N = vnNetwork.size();
     //_viDistances.reserve(N);
@@ -93,26 +82,11 @@ void Node::setDistances(vector< Node > &vnNetwork) {
 	delete[] piDistance;
 
 
-}
-
-void Node::setImpact(vector< Node > &vnNetwork) {
-    double selfOpinion,dOpinion;
-	double dIp,dIs;
-	( _bOpinion == true ) ? selfOpinion=1:selfOpinion=-1;
-    for( int i = 0; i < _viDistances.size(); i++) {
-	    if(_viDistances[i]==0) continue;
-	    ( vnNetwork[i].getOpinion() == true ) ? dOpinion=1:dOpinion=-1;
-		dIp=vnNetwork[i].getPersuasiveness()*(1-selfOpinion*dOpinion)/_viDistances[i]*_viDistances[i];
-		dIs=vnNetwork[i].getSupportiveness()*(1+selfOpinion*dOpinion)/_viDistances[i]*_viDistances[i];
-	    
-	    _dImpact += dIp-dIs;
-	}
-}
-
-int Node::timeStep(double dNoise) {
+}*/
+/*int Node::timeStep(double dNoise) {
     //The inequality reverses since the evolution rule has a minus sign outside the sign function
     ( _bOpinion*_dImpact+dNoise < 0) ? _bOpinion=true:_bOpinion=false;
     if( _bOpinion == true ) return 1;
 	else return -1;
-}
+}*/
 

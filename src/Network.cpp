@@ -1,4 +1,4 @@
-#include<Network.h>
+#include<Network.hpp>
 #include<Degree.h>
 #include<Node.hpp>
 #include<cstdlib>
@@ -8,10 +8,18 @@
 
 using namespace std;
 
-vector< Node > ring( int iSize, int iAverageDegree ) {
+int isIn(vector<int> ivVertex, int iNumber) {
+    for( vector<int>::iterator it = ivVertex.begin(); it != ivVertex.end(); it++){
+		    if ( iNumber == *it ) return iNumber;
+	}
+	return -1;
+}
+
+template <class node>
+vector<node> Network<node>::ring( int iSize, int iAverageDegree ) {
     vector< Node > ivvGraph;
 	for( int i = 0; i < iSize; i++ ) {
-	  Node nTmp(i);
+	  node nTmp(i);
 	  ivvGraph.push_back(nTmp);
 	}
 	for( int i = 0; i < iSize; i++ ) {
@@ -24,16 +32,17 @@ vector< Node > ring( int iSize, int iAverageDegree ) {
 		}
 	}
 
-	return ivvGraph;
+	//return ivvGraph;
 }
-
-vector< Node > wattsStrogatzModel(int iSize, int iAverageDegree, double dProbability) {
+template<class node>
+vector< node > Network<node>::wattsStrogatzModel(int iSize, int iAverageDegree,
+                                                 double dProbability){
     random_device rd;
 	double ran_max=double(rd.max()),ran;
 
-	vector< Node > ivvWSNetwork;
+	vector< node > ivvWSNetwork;
 	for ( int i = 0; i < iSize; i++ ) {
-	    Node ivNode(i);
+	    node ivNode(i);
 		ivvWSNetwork.push_back(ivNode);
 	}
 	for( int i = 0; i < iSize; i++ ) {//runs trhough every node
@@ -42,21 +51,22 @@ vector< Node > wattsStrogatzModel(int iSize, int iAverageDegree, double dProbabi
 		        ran=double(rd())/ran_max;
 			    if( ran < dProbability ) { //If P -> rewire with a normal distribution
 				    ran=rd();
-					cout<<ran<<endl;
+					//cout<<ran<<endl;
 				    iNeighbor = mod(int(ran)%(iAverageDegree+1)+(i+1),iSize);
 
 			    }
 			    else iNeighbor = mod(i+j,iSize);
 				
-				if(  isIn(ivvWSNetwork[i]._viNeighbors,iNeighbor) == -1 ) ivvWSNetwork[i]._viNeighbors.push_back(iNeighbor);
-				if(  isIn(ivvWSNetwork[iNeighbor]._viNeighbors,i) == -1 ) ivvWSNetwork[iNeighbor]._viNeighbors.push_back(i);
+				if(  isIn(ivvWSNetwork[i].getNeighbors(),iNeighbor) == -1 ) ivvWSNetwork[i].pushBackNeighbor(iNeighbor);
+				if(  isIn(ivvWSNetwork[iNeighbor].getNeighbors(),i) == -1 ) ivvWSNetwork[iNeighbor].pushBackNeighbor(i);
 		}
 	}
     return ivvWSNetwork;
 }
 
-vector< Node > barabasiAlbertModel( vector< Node > ivvNetwork,
-                                           int iSteps, int iConectivity ) {
+template<class node>
+vector< node > Network<node>::barabasiAlbertModel(vector< node > ivvNetwork,
+                                                   int iSteps, int iConectivity) {
 
 	srand48(time(NULL));
 	double r;
@@ -67,7 +77,7 @@ vector< Node > barabasiAlbertModel( vector< Node > ivvNetwork,
     for( int t = 0; t < iSteps; t++ ) {
 	    iSize=ivvNetwork.size();
 	    double dDegreeSum = iSize*averageDegree(ivvNetwork);
-	    Node ivTmp(iInitialSize+t);
+	    node ivTmp(iInitialSize+t);///PILAS CON ESTE CONSTRUCTOR
 	    ivvNetwork.push_back(ivTmp);
 
 
