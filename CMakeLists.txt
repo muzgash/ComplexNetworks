@@ -15,6 +15,11 @@ include/Node.hpp
 src/Node.cpp
 )
 
-ADD_EXECUTABLE( sinergy src/Sinergy.cpp )
+#add_library(libnodesis SHARED
+#include/NodeSIS.hpp
+#src/NodeSIS.cpp
+#)
 
-target_link_libraries(sinergy libnode libnodesis)
+ADD_EXECUTABLE( synergy src/Synergy.cpp )
+
+target_link_libraries(synergy libnode)

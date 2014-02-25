@@ -9,7 +9,7 @@ int main(int argc, char **argv)
 	ba.setSize(6);
 	ba.setAverageDegree(4);
 	//ba.setRing();
-	//ba.setBarabasiAlbert(3,2);
+	ba.setBarabasiAlbert(3,2);
 	//ba.setWattsStrogatz(0.4);
 	ba.printNetwork();
     return 0;
