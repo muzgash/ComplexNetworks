@@ -20,27 +20,26 @@ class Node {
 		vector<int>::iterator begin(){return _viNeighbors.begin();}
 		vector<int>::iterator end(){return _viNeighbors.end();}
 
-		//void printDistances();
 		void printNeighbors();
-
-        //void setDistances(vector< Node > &vnNetwork);
 
         //Accesor methods
         int getIndex(){return _iIndex;}
-		vector< int > getNeighbors(){return _viNeighbors;}
 		int getSize(){return _viNeighbors.size();}
-		//vector<int> getDistances(){return _viDistances;}
+		vector< int > getNeighbors(){return _viNeighbors;}
 		
 		//Mutator methods
+		/*!\brief Append nighbors to the back of the adjacency listt
+		 * @param int iNewNeighbor: Index of the new neighbor
+		 */
 		void pushBackNeighbor(int iNewNeighbor){_viNeighbors.push_back(iNewNeighbor);}
 
 	private:
-		vector<int> _viNeighbors; //Adjacency list
+	    ///Adjacency list
+		vector<int> _viNeighbors;
 
         int _iIndex;
 
 		vector<int>::iterator _it;
-		//vector<int> _viDistances;
 };
 
 

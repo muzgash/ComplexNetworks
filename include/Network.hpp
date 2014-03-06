@@ -7,8 +7,10 @@
 
 using namespace std;
 
-#define p(x) cout<<x<<endl
 
+
+/*!\brief Mother class for networks, it needs a node to operate.
+ */
 template<class node>
 class Network
 {
@@ -20,24 +22,43 @@ class Network
 	int getSize(){return _iSize;}
 	char* getType(){return _pcType;}
 	double getAverageDegree(){return _dAverageDegree;}
+	//Not yet implemented
 	double getAvereageClusteringCoefficient(){return _dAverageClusteringCoefficient;}
+	//Not yet implemented
 	double getAverageShortestPathLength(){return _dAverageShortestPathLength;}
 
 	//Mutator Methods
+	void setNetwork(vector<node> vnNetwork);
 	void setSize(int iSize);
 	void setAverageDegree(double dAverageDegree);
 	void setAverageClusteringCoefficient();
 	void setAverageShortestPathlength();
 
 	//Network types creators
+	/*!\brief sets a regular ring from a size and degree previously set.
+	 */
 	void setRing();
+
+	/*!\brief Fills _vnNetwork with a Watts-Strogatz model network from a ring
+	 * @param double dProbability:  
+	 */
 	void setWattsStrogatz(double dProbability);
+
+	/*!\brief Fills _vnNetwork with a Barabási-Albert model network from a ring
+	 * @param int iSteps: Additional nodes for the network.
+	 * @param int iConnectivity: Degree of the new node for each iStep.
+	 */
 	void setBarabasiAlbert(int iSteps, int iConnectivity);
 
 	//Adding Methods
+	/*!\brief Append a node.
+	 * @param node nNode:
+	 */
 	void addNode(node nNode);
 
 	//Printing Functions
+	/*!\brief Print the adjacency lists of every node.
+	 */
 	void printNetwork();
 
   private:
@@ -46,6 +67,8 @@ class Network
 	double _dAverageDegree;
 	double _dAverageClusteringCoefficient;
 	double _dAverageShortestPathLength;
+
+  protected:
 	vector<node> _vnNetwork;
 };
 
@@ -90,6 +113,11 @@ void Network<node>::printNetwork(){
 }
 
 //NETWORK SETUP METHODS
+template<class node>
+void Network<node>::setNetwork(vector<node> vnNetwork) {
+    _vnNetwork=vnNetwork;
+}
+
 template<class node>
 void Network<node>::setSize(int iSize) {
     _iSize=iSize;

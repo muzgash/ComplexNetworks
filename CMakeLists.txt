@@ -15,11 +15,13 @@ include/Node.hpp
 src/Node.cpp
 )
 
-#add_library(libnodesis SHARED
-#include/NodeSIS.hpp
-#src/NodeSIS.cpp
-#)
+add_library(libnodesis SHARED
+include/NodeSIS.hpp
+src/NodeSIS.cpp
+)
 
-ADD_EXECUTABLE( synergy src/Synergy.cpp )
+ADD_EXECUTABLE( markov src/Markov.cpp )
+target_link_libraries(markov libnode libnodesis)
 
-target_link_libraries(synergy libnode)
+ADD_EXECUTABLE( montecarlo src/Montecarlo.cpp )
+target_link_libraries(montecarlo libnode libnodesis)
